@@ -226,8 +226,8 @@ Use addPyFile(path) to add a .py or .zip dependency for all tasks to be executed
 * S3 - Use [S3 Browser](http://s3browser.com/download.php)
 
 ## Credits
-* Please contact Richard Freeman by email at JustGiving.com for any feedback or comments. See [Richard Freeman's website](http://www.rfreeman.net) for the blog and research articles.
-* Thanks to Amo Abeyaratne at AWS for his support.
+* Please contact Richard Freeman by email at JustGiving.com for any feedback or comments. See [Richard Freeman's website](http://www.rfreeman.net) for his blog and research articles.
+* A thanks to Amo Abeyaratne at AWS for his support.
 
 ## License
 Copyright (c) 2015 Giving.com, trading as JustGiving. Licensed under the Apache License (v2.0).
