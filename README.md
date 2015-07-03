@@ -194,6 +194,7 @@ You can run any shell command using a prefix exclamation mark !
 
 Running *k*-means example  
 `!~/spark/bin/spark-submit --driver-memory 1G --master yarn-client --num-executors 3  ~/spark/examples/src/main/python/mllib/kmeans.py s3://myjgbucket/data/kmeans_data.txt 5`
+
 You will see the pySpark logging and get the final output like: `Final centers: [array([ 9.1,  9.1,  9.1]), array([ 0.05,  0.05,  0.05]), array([10.1  ,  10.9  ,   0.205]), array([ 10.2 ,  10.4 ,   0.22]), array([ 0.2, 0.2, 0.2])]`
 
 
