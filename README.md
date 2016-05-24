@@ -230,4 +230,5 @@ Use addPyFile(path) to add a .py or .zip dependency for all tasks to be executed
 * A thanks to Amo Abeyaratne at AWS for his support.
 
 ## License
-Copyright (c) 2015 Giving.com, trading as JustGiving. Licensed under the Apache License (v2.0).
+Copyright (c) 2015 Giving.com Ltd, trading as JustGiving, or its affiliates. All Rights Reserved.
+Licensed under the Apache License, Version 2.0 license. See LICENSE file in the project root for full license information.
