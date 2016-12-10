@@ -9,7 +9,7 @@ cd /home/hadoop
 sudo pip install virtualenv
 mkdir IPythonNB
 cd IPythonNB
-/usr/local/bin/virtualenv -p /usr/bin/python2.7 venv
+`which virtualenv` -p /usr/bin/python2.7 venv
 source venv/bin/activate
 
 #Install ipython and dependency
