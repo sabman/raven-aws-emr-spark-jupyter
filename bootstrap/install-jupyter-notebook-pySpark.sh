@@ -17,7 +17,7 @@ pip install "ipython[notebook]"
 pip install requests numpy
 pip install matplotlib
 
-#Create profile 	
+#Create profile
 ipython profile create default
 
 #Run on master /slave based on configuration
@@ -31,6 +31,7 @@ export IPYTHON_HOME=/home/hadoop/IPythonNB/venv/
 export PATH=$PATH:$IPYTHON_HOME/bin
 export IPYTHON_OPTS="notebook --no-browser"
 export MASTER=yarn-client
-nohup /home/hadoop/spark/bin/pyspark --master yarn-client > /mnt/var/log/python_notebook.log &
- 
+export PYSPARK_PATH=`which pyspark`
+nohup $PYSPARK_PATH --master yarn-client > /mnt/var/log/python_notebook.log &
+
 fi
