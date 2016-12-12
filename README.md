@@ -128,6 +128,11 @@ Access the Jupyter wiht URL:
  * Jupyter http://master-public-dns-name:8192
  * For a new Notebook press New > Python2
 
+## Copy data to S3
+
+```
+aws s3 cp ./bootstrap s3://<bucket-name> --recursive []--region eu-central-1]
+```
 
 ## Running pySpark interactivly
 Wordcount on local file
