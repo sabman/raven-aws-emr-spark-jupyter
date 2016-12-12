@@ -15,12 +15,12 @@ Apache Spark is a fast and computing engine for large-scale data processing supp
 ## Setup AWS and PuTTY on Windows
 1. Install and Setup the AWS CLI
  * Install the 64-bit version of the [AWS CLI](http://aws.amazon.com/cli/)
- * run **aws-configure** and add the AWS public and private keys by running 
+ * run **aws-configure** and add the AWS public and private keys by running
  * press enter for the region and output format (optional)
 ```
 aws configure
 ```
-See [CLI docs](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) for details 
+See [CLI docs](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) for details
 2. Install and setup Putty
  * Download [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) to your computer
 
@@ -29,7 +29,7 @@ See [CLI docs](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-
 2. If you have CR characters in the install-jupyter-notebook-pySpark.sh bootstrap file this can lead to issues in LINUX. Replace any CRLF character with LF, e.g. you can use notepad++ and replace extended "\r" with blanks
 2. Copy the folders **data** and **bootstrap** to the bucket, you can AWS CLI or [S3 Browser](http://s3browser.com/download.php)
 
- 
+
 ## Create Cluster from AWS CLI
 There are two ways to launch a Spark cluster with Jupyter
 
@@ -47,7 +47,7 @@ There are a number of parameters that can be changed
 
 ### 2. Installing Spark via a bootstrap action
 
-Using the bootstrap allows you to select the Spark version, e.g Spark v1.4.0b 
+Using the bootstrap allows you to select the Spark version, e.g Spark v1.4.0b
 
 `
 aws.exe emr create-cluster --name Poc-Spark-jupyter-Cluster-3.8.0 --ami-version 3.8.0 --instance-type m3.xlarge --instance-count 3 --applications Name=GANGLIA --bootstrap-actions  Path=s3://support.elasticmapreduce/spark/install-spark,Name=Spark,Args=-v1.4.0.b   Path=s3://myjgbucket/bootstrap/install-jupyter-notebook-pySpark.sh,Name=Install_jupyter_NB --region eu-west-1 --use-default-roles --ec2-attributes  KeyName=myKey --tags Name=poc-spark-node Owner=Data-Science-Team --enable-debugging --log-uri s3://myjgbucket/Log/
@@ -58,9 +58,9 @@ There are a number of parameters that can be changed
  * --instance-type - the [type of instances](http://aws.amazon.com/elasticmapreduce/pricing/)
  * --instance-count - the number of instances or nodes in your spark cluster.
  * Args=-v1.4.0.b" if you want another version of Spark
- 
+
 ## Spark cluster management
- 
+
 The provisioning process takes about 5/10 min with the current configration with full logging and monitoring tools.
 
 When State = Running/Waiting the cluster is ready. Get the DNS end point so that you can SSH into the headnode
@@ -72,7 +72,7 @@ Remember to terminate the cluster when you are done, as you will incur costs for
 Record the cluster-id as this can be used to TERMINATE the instance, for example assume that the cluster-id j-XXXXXXXXXXXXX:
 
 ```
-aws emr terminate-clusters --region eu-west-1 --cluster-ids j-XXXXXXXXXXXXX 
+aws emr terminate-clusters --region eu-west-1 --cluster-ids j-XXXXXXXXXXXXX
 ```
 
 If you forget the cluster-id then you can run the following
@@ -90,24 +90,24 @@ To work out the costs of running your cluster you can use the AWS calculator:
 	* Select SSH and Port 22
  * In the Category list, expand Connection > SSH, and then click Auth.
     * For Private key file for authentication, click Browse and select the private key file (poc-raven-emr.ppk) used to launch the cluster.
- * In the Connection set 
+ * In the Connection set
     * Seconds between keepalive to 60
     * Check Disable Nagle and Enable TCP keepalive
- * In the Category list, expand Connection > SSH, and then click Tunnels. 
+ * In the Category list, expand Connection > SSH, and then click Tunnels.
     * In the Source port field, type 8157 (an unused local port).
     * Leave the Destination field blank.
     * Select the Dynamic and Auto options.
-    * Click Add 
+    * Click Add
  * Go back to session
 	* Enter a name under Saved Session and press Save
 	* Next time you logon to a cluster you can use this configuration and just need to change the Host Name
  * Click Open.
  * Click Yes to dismiss the security alert.
 
-A full guide can be found here: 
+A full guide can be found here:
  * [emr-ssh-tunnel](https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-ssh-tunnel.html)
  * [emr-connect-master-node-ssh](https://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-connect-master-node-ssh.html)
- 
+
 ## Accessing the cluster web pages:
 
 Connect to the Master node and setup a secure tunnel, for windows use PuTTY and FoxyProxy:
@@ -141,7 +141,7 @@ word_counts = text_file \
     .flatMap(lambda line: line.split()) \
     .map(lambda word: (word, 1)) \
     .reduceByKey(lambda a, b: a + b)
-    
+
 word_counts.collect()
 
 ```
@@ -164,7 +164,9 @@ from pyspark.mllib.clustering import KMeans
 def parseVector(line):
     return np.array([float(x) for x in line.split(' ')])
 
-data_path = "s3://myjgbucket/data/kmeans_data.txt"
+# sc._jsc.hadoopConfiguration().set("fs.s3a.endpoint", "s3-eu-west-1.amazonaws.com")
+
+data_path = "s3://raven-data/kmeans_data.txt"
 k = int(5)
 lines = sc.textFile(data_path)
 data = lines.map(parseVector)
@@ -186,7 +188,7 @@ plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
 plt.show()
 ```
 
-## Running shell command 
+## Running shell command
 
 You can run any shell command using a prefix exclamation mark !
 
@@ -195,7 +197,7 @@ You can run any shell command using a prefix exclamation mark !
 Running *k*-means example  
 `!~/spark/bin/spark-submit --driver-memory 1G --master yarn-client --num-executors 3  ~/spark/examples/src/main/python/mllib/kmeans.py s3://myjgbucket/data/kmeans_data.txt 5`
 
-You will see the pySpark logging and get the final output like: 
+You will see the pySpark logging and get the final output like:
 `Final centers: [array([ 9.1,  9.1,  9.1]), array([ 0.05,  0.05,  0.05]), array([10.1  ,  10.9  ,   0.205]), array([ 10.2 ,  10.4 ,   0.22]), array([ 0.2, 0.2, 0.2])]`
 
 
@@ -209,7 +211,7 @@ Running wordcount an a file in S3
 ## Importing new packages and apps
 If you need to import packages or run applications, you can use run python and bash commands directly in Jupyter.
 
-For example install PostgreSQL 
+For example install PostgreSQL
 ```
 !sudo yum install postgresql
 ```
