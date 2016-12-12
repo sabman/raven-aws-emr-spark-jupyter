@@ -25,6 +25,7 @@ echo "c = get_config()" >  /home/hadoop/.ipython/profile_default/ipython_noteboo
 echo "c.NotebookApp.ip = '*'" >>  /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
 echo "c.NotebookApp.open_browser = False"  >>  /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
 echo "c.NotebookApp.port = 8192" >>  /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
+echo "c.NotebookApp.password = u'sha1:14445163bd5a:97a0f8d56520c8c4f342a0145425fc362150adee'" >> /home/hadoop/.ipython/profile_default/ipython_notebook_config.py
 
 #starting ipython notebook with pyspark interactive support.
 export IPYTHON_HOME=/home/hadoop/IPythonNB/venv/
